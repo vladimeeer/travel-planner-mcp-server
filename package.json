@@ -1,21 +1,23 @@
 {
-  "name": "@modelcontextprotocol/server-travel-planner",
-  "version": "0.1.0",
+  "name": "@gongrzhe/server-travelplanner-mcp",
+  "version": "0.1.2",
   "description": "MCP server for travel planning and itinerary management",
   "license": "MIT",
-  "author": "Anthropic, PBC (https://anthropic.com)",
-  "homepage": "https://modelcontextprotocol.io",
+  "author": "Gongrzhe, Inc. (https://gongrzhe.com)",
+  "homepage": "https://gongrzhe.com",
   "type": "module",
+  "main": "dist/index.js",
   "bin": {
-    "mcp-server-travel-planner": "dist/index.js"
+    "server-travelplanner-mcp": "./dist/index.js"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsc && shx chmod +x dist/*.js",
+    "build": "tsc",
     "prepare": "npm run build",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "0.5.0",
@@ -27,7 +29,9 @@
   "devDependencies": {
     "@types/node": "^22",
     "@types/google.maps": "^3.54.10",
-    "shx": "^0.3.4",
     "typescript": "^5.3.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 } 

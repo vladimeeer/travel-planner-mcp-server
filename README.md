@@ -1,141 +1,114 @@
-# Travel Planner MCP Server
+# Travel Planner MCP Server (@gongrzhe/server-travelplanner-mcp)
 
-An MCP server implementation for travel planning and itinerary management. This server provides tools for creating and managing travel plans, including itinerary creation, attraction search, and transportation/accommodation recommendations.
+A Travel Planner Model Context Protocol (MCP) server implementation for interacting with Google Maps and travel planning services. This server enables LLMs to perform travel-related tasks such as location search, place details lookup, and travel time calculations.
 
-## Features
+## Installation & Usage
 
-### Itinerary Management
-- Create personalized travel itineraries
-- Optimize existing itineraries based on various criteria
-- Support for multi-day trips with detailed daily schedules
+```bash
+# Using npx (recommended)
+npx @gongrzhe/server-travelplanner-mcp
 
-### Location Services
-- Search for attractions and points of interest
-- Get detailed information about places
-- Integration with Google Maps for location data
-
-### Travel Services
-- Find transportation options between locations
-- Search for accommodation options
-- Budget management and optimization
-
-## Tools
-
-### create_itinerary
-Creates a personalized travel itinerary based on user preferences.
-```json
-{
-  "origin": "New York",
-  "destination": "Paris",
-  "startDate": "2024-03-01",
-  "endDate": "2024-03-07",
-  "budget": 5000,
-  "preferences": ["museums", "food", "architecture"]
-}
+# With environment variable for Google Maps API
+GOOGLE_MAPS_API_KEY=your_api_key npx @gongrzhe/server-travelplanner-mcp
 ```
 
-### optimize_itinerary
-Optimizes an existing itinerary based on specified criteria.
-```json
-{
-  "itineraryId": "trip-123",
-  "optimizationCriteria": ["time", "cost", "distance"]
-}
+Or install globally:
+
+```bash
+# Install globally
+npm install -g @gongrzhe/server-travelplanner-mcp
+
+# Run after global installation
+GOOGLE_MAPS_API_KEY=your_api_key @gongrzhe/server-travelplanner-mcp
 ```
 
-### search_attractions
-Searches for attractions and points of interest in a specified location.
-```json
-{
-  "location": "Paris, France",
-  "radius": 5000,
-  "categories": ["museum", "restaurant", "landmark"]
-}
-```
+## Components
 
-### get_transport_options
-Retrieves available transportation options between two points.
-```json
-{
-  "origin": "Charles de Gaulle Airport",
-  "destination": "Eiffel Tower",
-  "date": "2024-03-01"
-}
-```
+### Tools
 
-### get_accommodations
-Searches for accommodation options in a specified location.
-```json
-{
-  "location": "Paris, France",
-  "checkIn": "2024-03-01",
-  "checkOut": "2024-03-07",
-  "budget": 200
-}
-```
+- **searchPlaces**
+  - Search for places using Google Places API
+  - Input:
+    - `query` (string): Search query for places
+    - `location` (optional): Latitude and longitude to bias results
+    - `radius` (optional): Search radius in meters
+
+- **getPlaceDetails**
+  - Get detailed information about a specific place
+  - Input:
+    - `placeId` (string): Google Place ID to retrieve details for
+
+- **calculateRoute**
+  - Calculate route between two locations
+  - Input:
+    - `origin` (string): Starting location
+    - `destination` (string): Ending location
+    - `mode` (optional): Travel mode (driving, walking, bicycling, transit)
+
+- **getTimeZone**
+  - Get timezone information for a location
+  - Input:
+    - `location`: Latitude and longitude coordinates
+    - `timestamp` (optional): Timestamp for time zone calculation
 
 ## Configuration
 
-### Environment Variables
-- `GOOGLE_MAPS_API_KEY`: Required for location services
-- `TRANSPORT_API_KEY`: Optional for transportation services
-- `ACCOMMODATION_API_KEY`: Optional for accommodation services
-
 ### Usage with Claude Desktop
 
-Add to your `claude_desktop_config.json`:
+To use this server with the Claude Desktop app, add the following configuration to the "mcpServers" section of your `claude_desktop_config.json`:
 
-#### Docker
-```json
-{
-  "mcpServers": {
-    "travel-planner": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "GOOGLE_MAPS_API_KEY",
-        "mcp/travel-planner"
-      ],
-      "env": {
-        "GOOGLE_MAPS_API_KEY": "your_api_key_here"
-      }
-    }
-  }
-}
-```
-
-#### NPX
 ```json
 {
   "mcpServers": {
     "travel-planner": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-travel-planner"
-      ],
+      "args": ["@gongrzhe/server-travelplanner-mcp"],
       "env": {
-        "GOOGLE_MAPS_API_KEY": "your_api_key_here"
+        "GOOGLE_MAPS_API_KEY": "your_google_maps_api_key"
       }
     }
   }
 }
 ```
 
-## Building
+Alternatively, you can use the node command directly if you have the package installed:
 
-```bash
-# Build with Docker
-docker build -t mcp/travel-planner -f src/travel-planner/Dockerfile .
-
-# Build with npm
-npm install
-npm run build
+```json
+{
+  "mcpServers": {
+    "travel-planner": {
+      "command": "node",
+      "args": ["path/to/dist/index.js"],
+      "env": {
+        "GOOGLE_MAPS_API_KEY": "your_google_maps_api_key"
+      }
+    }
+  }
+}
 ```
+
+## Development
+
+### Building from Source
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Build the project:
+   ```bash
+   npm run build
+   ```
+
+### Environment Variables
+
+- `GOOGLE_MAPS_API_KEY` (required): Your Google Maps API key with the following APIs enabled:
+  - Places API
+  - Directions API
+  - Geocoding API
+  - Time Zone API
 
 ## License
 
-This MCP server is licensed under the MIT License. See the LICENSE file for details. 
+This MCP server is licensed under the MIT License. For more details, please see the LICENSE file in the project repository. 
