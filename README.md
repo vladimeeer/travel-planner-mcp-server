@@ -1,9 +1,18 @@
 # Travel Planner MCP Server (@gongrzhe/server-travelplanner-mcp)
+[![smithery badge](https://smithery.ai/badge/@GongRzhe/TRAVEL-PLANNER-MCP-Server)](https://smithery.ai/server/@GongRzhe/TRAVEL-PLANNER-MCP-Server)
 
 A Travel Planner Model Context Protocol (MCP) server implementation for interacting with Google Maps and travel planning services. This server enables LLMs to perform travel-related tasks such as location search, place details lookup, and travel time calculations.
 
 ## Installation & Usage
+### Installing via Smithery
 
+To install Travel Planner for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@GongRzhe/TRAVEL-PLANNER-MCP-Server):
+
+```bash
+npx -y @smithery/cli install @GongRzhe/TRAVEL-PLANNER-MCP-Server --client claude
+```
+
+### Installing Manually
 ```bash
 # Using npx (recommended)
 npx @gongrzhe/server-travelplanner-mcp
