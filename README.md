@@ -3,6 +3,10 @@
 
 A Travel Planner Model Context Protocol (MCP) server implementation for interacting with Google Maps and travel planning services. This server enables LLMs to perform travel-related tasks such as location search, place details lookup, and travel time calculations.
 
+<a href="https://glama.ai/mcp/servers/y3u6yjiiq1">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/y3u6yjiiq1/badge" alt="Travel Planner Server MCP server" />
+</a>
+
 ## Installation & Usage
 ### Installing via Smithery
 
@@ -120,4 +124,4 @@ Alternatively, you can use the node command directly if you have the package ins
 
 ## License
 
-This MCP server is licensed under the MIT License. For more details, please see the LICENSE file in the project repository. 
+This MCP server is licensed under the MIT License. For more details, please see the LICENSE file in the project repository.
