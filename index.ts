@@ -6,7 +6,10 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
-import { Client as GoogleMapsClient } from "@googlemaps/google-maps-services-js";
+import {
+  Client as GoogleMapsClient,
+  TravelMode,
+} from "@googlemaps/google-maps-services-js";
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
@@ -127,17 +130,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   try {
     switch (name) {
       case "create_itinerary": {
-        // This could chain several API calls (geocode, directions, places, etc.)
-        // Here is a simple version: get directions and rough summary.
         const validatedArgs = CreateItinerarySchema.parse(args);
 
-        // Directions call
         const directionsResp = await googleMapsClient.directions({
           params: {
             key: apiKey,
             origin: validatedArgs.origin,
             destination: validatedArgs.destination,
-            mode: "driving",
+            mode: TravelMode.DRIVING,
           },
         });
 
@@ -158,7 +158,6 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       }
 
       case "optimize_itinerary": {
-        // This is a placeholder, real optimization would require storing & analyzing itineraries.
         const validatedArgs = OptimizeItinerarySchema.parse(args);
         return {
           content: [
@@ -172,7 +171,6 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case "search_attractions": {
         const validatedArgs = SearchAttractionsSchema.parse(args);
-        // parse "lat,lng"
         const [lat, lng] = validatedArgs.location.split(",").map(Number);
         if (isNaN(lat) || isNaN(lng)) throw new Error("Invalid location format, must be 'lat,lng'");
 
@@ -200,9 +198,13 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       }
 
       case "get_transport_options": {
-        // Use Google Directions API (with different modes)
         const validatedArgs = GetTransportOptionsSchema.parse(args);
-        const modes = ["driving", "walking", "bicycling", "transit"];
+        const modes = [
+          TravelMode.DRIVING,
+          TravelMode.WALKING,
+          TravelMode.BICYCLING,
+          TravelMode.TRANSIT,
+        ];
         let resultsText = "";
 
         for (const mode of modes) {
@@ -234,7 +236,6 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       }
 
       case "get_accommodations": {
-        // Use Google Places API with type "lodging"
         const validatedArgs = GetAccommodationsSchema.parse(args);
         const geocodeResp = await googleMapsClient.geocode({
           params: {
@@ -252,8 +253,6 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             location: geo,
             radius: 5000,
             type: "lodging",
-            minprice: validatedArgs.budget ? Math.max(0, Math.floor(validatedArgs.budget / 20)) : undefined,
-            maxprice: validatedArgs.budget ? Math.min(4, Math.ceil(validatedArgs.budget / 50)) : undefined,
           },
         });
 
@@ -280,7 +279,15 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           params: {
             key: apiKey,
             place_id: validatedArgs.placeId,
-            fields: ["name", "formatted_address", "rating", "user_ratings_total", "website", "geometry", "formatted_phone_number"],
+            fields: [
+              "name",
+              "formatted_address",
+              "rating",
+              "user_ratings_total",
+              "website",
+              "geometry",
+              "formatted_phone_number"
+            ],
           },
         });
 
