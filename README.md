@@ -1,5 +1,4 @@
-# Travel Planner MCP Server (@gongrzhe/server-travelplanner-mcp)
-[![smithery badge](https://smithery.ai/badge/@GongRzhe/TRAVEL-PLANNER-MCP-Server)](https://smithery.ai/server/@GongRzhe/TRAVEL-PLANNER-MCP-Server)
+# Travel Planner MCP Server (@vladimeeer/server-travelplanner-mcp)
 
 A Travel Planner Model Context Protocol (MCP) server implementation for interacting with Google Maps and travel planning services. This server enables LLMs to perform travel-related tasks such as location search, place details lookup, and travel time calculations.
 
@@ -19,17 +18,17 @@ npx -y @smithery/cli install @GongRzhe/TRAVEL-PLANNER-MCP-Server --client claude
 ### Installing Manually
 ```bash
 # Using npx (recommended)
-npx @gongrzhe/server-travelplanner-mcp
+npx @vladimeeer/server-travelplanner-mcp
 
 # With environment variable for Google Maps API
-GOOGLE_MAPS_API_KEY=your_api_key npx @gongrzhe/server-travelplanner-mcp
+GOOGLE_MAPS_API_KEY=your_api_key npx @vladimeeer/server-travelplanner-mcp
 ```
 
 Or install globally:
 
 ```bash
 # Install globally
-npm install -g @gongrzhe/server-travelplanner-mcp
+npm install -g @vladimeeer/server-travelplanner-mcp
 
 # Run after global installation
 GOOGLE_MAPS_API_KEY=your_api_key @gongrzhe/server-travelplanner-mcp
