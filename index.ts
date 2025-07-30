@@ -137,7 +137,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             key: apiKey,
             origin: validatedArgs.origin,
             destination: validatedArgs.destination,
-            mode: TravelMode.DRIVING,
+            mode: TravelMode.driving,
           },
         });
 
@@ -200,10 +200,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case "get_transport_options": {
         const validatedArgs = GetTransportOptionsSchema.parse(args);
         const modes = [
-          TravelMode.DRIVING,
-          TravelMode.WALKING,
-          TravelMode.BICYCLING,
-          TravelMode.TRANSIT,
+          TravelMode.driving,
+          TravelMode.walking,
+          TravelMode.bicycling,
+          TravelMode.transit,
         ];
         let resultsText = "";
 
