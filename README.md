@@ -1,4 +1,4 @@
-# Travel Planner MCP Server (@vladimeeer/server-travelplanner-mcp)
+# Travel Planner MCP Server (@vladimeeer/travel-planner-mcp-server)
 
 A Travel Planner Model Context Protocol (MCP) server implementation for interacting with Google Maps and travel planning services. This server enables LLMs to perform travel-related tasks such as location search, place details lookup, and travel time calculations.
 
@@ -7,31 +7,24 @@ A Travel Planner Model Context Protocol (MCP) server implementation for interact
 </a>
 
 ## Installation & Usage
-### Installing via Smithery
-
-To install Travel Planner for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@GongRzhe/TRAVEL-PLANNER-MCP-Server):
-
-```bash
-npx -y @smithery/cli install @GongRzhe/TRAVEL-PLANNER-MCP-Server --client claude
-```
 
 ### Installing Manually
 ```bash
 # Using npx (recommended)
-npx @vladimeeer/server-travelplanner-mcp
+npx @vladimeeer/travel-planner-mcp-server
 
 # With environment variable for Google Maps API
-GOOGLE_MAPS_API_KEY=your_api_key npx @vladimeeer/server-travelplanner-mcp
+GOOGLE_MAPS_API_KEY=your_api_key npx @vladimeeer/travel-planner-mcp-server
 ```
 
 Or install globally:
 
 ```bash
 # Install globally
-npm install -g @vladimeeer/server-travelplanner-mcp
+npm install -g @vladimeeer/travel-planner-mcp-server
 
 # Run after global installation
-GOOGLE_MAPS_API_KEY=your_api_key @gongrzhe/server-travelplanner-mcp
+GOOGLE_MAPS_API_KEY=your_api_key @vladimeeer/travel-planner-mcp-server
 ```
 
 ## Components
@@ -74,7 +67,7 @@ To use this server with the Claude Desktop app, add the following configuration 
   "mcpServers": {
     "travel-planner": {
       "command": "npx",
-      "args": ["@gongrzhe/server-travelplanner-mcp"],
+      "args": ["@vladimeeer/travel-planner-mcp-server"],
       "env": {
         "GOOGLE_MAPS_API_KEY": "your_google_maps_api_key"
       }
